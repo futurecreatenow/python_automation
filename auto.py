@@ -31,14 +31,14 @@ df = pd.DataFrame([
 temp_column_name = []
 for column_name in df:
         temp_column_name.append(column_name)
-LENGT = len(df[temp_column_name[0]])
+LENGTH = len(df[temp_column_name[0]])
 
 ## 特定のカラム名(class)の値の取得(重複なし)
 column_kind = []
-for i in range(LENGT):
+for i in range(LENGTH):
         column_kind.append(df[temp_column_name[0]][i])
 column_kind = list(dict.fromkeys(column_kind))
-COLUMN_KIND = len(column_kind)
+LENGTH_COLUMN_KIND = len(column_kind)
 
 ##################### 番号(1-12)の表示####################
 #########################################################
@@ -49,14 +49,14 @@ for alphabet,num in zip (range(66,91),range(1,13)):
 
 ################ カラム>>>classの表示#####################
 #########################################################
-for i in range(COLUMN_KIND):
+for i in range(LENGTH_COLUMN_KIND):
     ws[f"A{3 + i}"].value = column_kind[i]
 
 
 ################ カラム>>>numの表示#####################
 #########################################################
 ## 該当のnumがある場合1を出力
-for i in range(COLUMN_KIND):
+for i in range(LENGTH_COLUMN_KIND):
     for class_,num in zip(df[temp_column_name[0]],df[temp_column_name[1]]):
         if class_ == column_kind[i]:
             ws[f"{chr(65 + num)}{3 + i}"].value = 1
