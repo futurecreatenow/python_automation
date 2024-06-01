@@ -1,58 +1,62 @@
-import time as tm
-import pandas as pd
-from openpyxl import load_workbook
-from openpyxl.utils.dataframe import dataframe_to_rows
+import os
+import pathlib
 
-################# 元ファイルの読み込み#############################
-#################################################################
-datafile = './original.xlsx'
-sheetname = 'Sheet'
+folder_path = r"C:\Users\teradatakayuki\Desktop\job"
 
-wb = load_workbook(filename=datafile)
-ws_in = wb[sheetname]
-df_ori = pd.DataFrame(ws_in.values)
+# 1)指定したディレクトリ内のファイルパスを全て表示する
+def show_file_path():
+    for current_dir, sub_dirs, files_list in os.walk(folder_path): 
+        for file_name in files_list:
+            print(os.path.join(current_dir,file_name))
 
-# 欠損値NaNを0に置換
-df_ori = df_ori.fillna(0)
-print(df_ori)
+# 2)指定したディレクトリ内のサブフォルダ名パスを全て表示する
+def show_subfolder_path():
+    for current_dir, sub_dirs, files_list in os.walk(folder_path): 
+        for sub_dir_name in sub_dirs:
+            print(os.path.join(current_dir,sub_dir_name))
+
+# 3)指定したディレクトリ内のサブフォルダ名を全て取得する
+def get_subfolder_name():
+    for current_dir, sub_dirs, files_list in os.walk(folder_path):
+            print(u"現在のディレクトリは {} です".format(current_dir)) 
+            print(u"サブディレクトリは {} です".format(sub_dirs)) 
 
 
-############### 追加ファイルの読み込み#############################
-#################################################################
-datafile_add = './auto.xlsx'
-sheetname = 'Sheet'
+if __name__ == '__main__':
+    # show_subfolder_path()
+    get_subfolder_name()
 
-wb_add = load_workbook(filename=datafile_add)
-ws_in_add = wb_add[sheetname]
-df_add = pd.DataFrame(ws_in_add.values)
 
-# 欠損値NaNを0に置換
-df_add = df_add.fillna(0)
-print(df_add)
 
-############### データの解析#############################
-#################################################################
-# クラスが共通かの判定
-ori_column = []
-for ori_col in df_ori:
-        ori_column.append(ori_col)
 
-add_column = []
-for add_col in df_add:
-        add_column.append(add_col)
 
-if ori_column == add_column:
-        print(0)
+
+
+
+
+
+
+''' 投稿一つ目
+# 検索したい文字列
+MOJI = "AAA-BBB-CCC"
+# 検索したい文字
+JUDGE = "C"
+
+l = []
+CERT = None
+
+if JUDGE in MOJI:
+    # 検索したい文字がある時
+    print(f"{JUDGE} is in {MOJI}")
+    # 特定の位置で文字列を区切る
+    l = MOJI.split("-")
+    for i in l:
+        if JUDGE in i:
+            # 検索文字が含まれる文字列の格納
+            CERT =  i
+            print(CERT)
+
 else:
-        print(1)
-
-
-
-
-
-wb.save(datafile)
-wb.close()
-
-wb_add.save(datafile_add)
-wb_add.close()
-
+    # 検索したい文字がない時
+    print(f"{JUDGE} is not in {MOJI}")
+'''
