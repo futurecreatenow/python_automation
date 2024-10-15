@@ -49,7 +49,7 @@ void OUTKeyFreg(FREGTABLE *fregtable){
 void OUTPrint(FREGTABLE *fregtable){
     int i = 0;
     printf("\n");
-    printf("### swap new structer ###\n");
+    printf("### swap array new structer ###\n");
     for (i = 0; i < fregtable->newnext; i++)
     {
         printf("(%s:%d)\n",fregtable->newtable[i].keywords,fregtable->newtable[i].frest);
@@ -62,6 +62,8 @@ void OUTPrint(FREGTABLE *fregtable){
 戻り値：なし
 **********************************************************************/
 void OUTListPrint(LIST *acc,int accnum){
+    printf("\n");
+    printf("### swap list new structer ###\n");
     for (int i = 0; acc[i].next != NULL; i++)
     {
         printf("(%s:%d)\n",acc[i].next->keywords,acc[i].next->frest);
