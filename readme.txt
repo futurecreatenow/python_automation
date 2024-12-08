@@ -1,4 +1,4 @@
-以下のように仮想環境を作成してアプリ開発を行う
+★以下のように仮想環境を作成してアプリ開発を行う
 ⇒exe化するうえで特定のモジュール(imp)が最新のpython versionに対応していないため
 
 ◆仮想環境作成
@@ -8,6 +8,9 @@
 4.pip freeze > requirements.txt
 5.venv\Scripts\activate
 6.pip install -r requirements.txt
+
+◆pythonスクリプトを実行可能なexeファイルに変換
+pyinstaller .\test.py --onefile
 
 ◆仮想環境の無効化
 deactivate
