@@ -1,8 +1,5 @@
 ★今回のアプリは3.11と3,12で使用できることを確認
 
-★以下のように仮想環境を作成してアプリ開発を行う
-⇒exe化するうえで特定のモジュール(imp)がpython version(3.11と3,12)に対応していないため
-
 ◆仮想環境作成
 0.事前準備
 0.1.pythonのバージョン確認
@@ -18,7 +15,9 @@
 4..\venv\Scripts\activate
 5.pip install -r requirements.txt
 
+
 ◆pythonスクリプトを実行可能なexeファイルに変換
+⇒今回はexeファイル化しない
 pyinstaller .\test.py --onefile
 
 ◆仮想環境の無効化
