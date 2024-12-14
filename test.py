@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from googletrans import Translator
 import webbrowser
 import json
+from datetime import datetime
 
 # JSONファイルから検索キーワードを読み込む
 def load_keywords_from_json(file_path):
@@ -64,9 +65,38 @@ def on_search():
         text_area.insert(tk.END, f': {link}\n\n')
         text_area.insert(tk.END, '-'*80 + '\n')  # 線引き追加
         text_area.tag_config(link, foreground="blue", underline=True)
-        text_area.tag_bind(link, "<Button-1>", lambda e, url=link: webbrowser.open_new(url))
+        text_area.tag_bind(link, "<Button-1>", lambda e, url=link: (webbrowser.open_new(url), save_history(original_title, url)))
     
     text_area.config(state=tk.DISABLED)
+
+def save_history(title, url):
+    with open("history.txt", "a", encoding='utf-8') as file:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        file.write(f"{timestamp}\t{title}\t{url}\n")
+
+def show_history():
+    try:
+        with open("history.txt", "r", encoding='utf-8') as file:
+            history_data = file.readlines()
+    except FileNotFoundError:
+        history_data = []
+
+    history_window = tk.Toplevel(root)
+    history_window.title("検索履歴")
+    history_text = scrolledtext.ScrolledText(history_window, wrap=tk.WORD, width=120, height=30, font=font)
+    history_text.grid(row=0, column=0, padx=10, pady=10)
+    
+    for entry in history_data:
+        parts = entry.split('\t')
+        if len(parts) == 3:
+            timestamp, title, url = parts
+            history_text.insert(tk.END, f'{timestamp}\t{title}\t', 'normal')
+            history_text.insert(tk.END, f'{url}\n', (url, 'hyperlink'))
+
+            history_text.tag_config(url, foreground="blue", underline=True)
+            history_text.tag_bind(url, "<Button-1>", lambda e, url=url: webbrowser.open_new(url))
+        else:
+            history_text.insert(tk.END, entry)
 
 def update_keywords(*args):
     genre = genre_var.get()
@@ -137,9 +167,13 @@ search_button.grid(row=5, column=0, columnspan=2, pady=10)
 gs_link_button = tk.Button(root, text="Open Google Scholar", command=open_google_scholar, bg=button_color, fg="white", font=button_font)
 gs_link_button.grid(row=6, column=0, columnspan=2, pady=10)
 
+# 履歴表示ボタン
+history_button = tk.Button(root, text="履歴を見る", command=show_history, bg=button_color, fg="white", font=button_font)
+history_button.grid(row=7, column=0, columnspan=2, pady=10)
+
 # 結果表示エリア
 text_area = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=120, height=30, font=font)
-text_area.grid(row=7, column=0, columnspan=2, padx=10, pady=10)
+text_area.grid(row=8, column=0, columnspan=2, padx=10, pady=10)
 text_area.config(state=tk.DISABLED)
 
 # メインループの開始
