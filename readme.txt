@@ -1,6 +1,6 @@
 ★今回のアプリは3.11と3,12で使用できることを確認
 
-◆仮想環境作成
+◆仮想環境作成 venvの使用
 0.事前準備
 0.1.pythonのバージョン確認
   py --version
@@ -28,18 +28,24 @@ venvファイルごと削除する
 
 ◆git管理
 リポジトリを新規作成する
-git init
+  git init
 ディレクトリの現在の状態を確認する
-git status
+  git status
 ワークツリーからインデックスにコミットしたいファイルを登録する
-git add ファイル名
+  git add ファイル名
 インデックス上のファイルを更新する
-git commit -m "コメント"
+  git commit -m "コメント"
 ログを出力する
-git log
+  git log
 新規ブランチを作成して切り替える
-git checkout -b "新規ブランチ名"
+  git checkout -b "新規ブランチ名"
 対象ブランチに切り替える
-git checkout "移動先ブランチ名"
+  git checkout "移動先ブランチ名"
 対象のコミットを元に戻す
-git revert <コミットID>
+  git revert <コミットID>
+ローカルリポジトリの作成
+  git clone <remote_repo_url>
+リモートリポジトリURLが正しいか確認する
+  git remote -v
+ローカルリポジトリの内容をリモートリポジトリにpushする（現在のブランチが main の場合）
+  git push origin main
